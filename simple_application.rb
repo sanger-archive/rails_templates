@@ -8,3 +8,6 @@ ENVIRONMENTS = ['development', 'training', 'staging', 'next_release', 'productio
 #git :init
 #git :add => "."
 #git :commit => "-a -m 'Initial commit'"
+
+# TODO: Add Capistrano things
+# TODO: Add nginx things
