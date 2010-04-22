@@ -11,3 +11,4 @@ ENVIRONMENTS = ['development', 'training', 'staging', 'next_release', 'productio
 
 # TODO: Add Capistrano things
 # TODO: Add nginx things
+# TODO: Freeze rails and gemS
