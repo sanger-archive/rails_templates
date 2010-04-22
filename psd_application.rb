@@ -9,6 +9,7 @@ ENVIRONMENTS = ['development', 'training', 'staging', 'next_release', 'productio
 #git :add => "."
 #git :commit => "-a -m 'Initial commit'"
 
-# TODO: Add Capistrano things
+# TODO: Add Capistrano deployment
 # TODO: Add nginx things
-# TODO: Freeze rails and gemS
+# TODO: Add cucumber and metric tests
+# TODO: Freeze rails and gems
