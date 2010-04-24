@@ -1,0 +1,24 @@
+development:
+  sanger_auth_service: https://intweb.sanger.ac.uk/cgi-bin/utils/verify_login
+  sanger_login_service: https://enigma.sanger.ac.uk/LOGIN
+  proxy: http://localhost:3128
+
+test:
+  sanger_auth_service: https://intweb.sanger.ac.uk/cgi-bin/utils/verify_login
+  sanger_login_service: https://enigma.sanger.ac.uk/LOGIN
+  proxy: http://wwwcache.sanger.ac.uk:3128
+ 
+staging:
+  sanger_auth_service: https://intweb.sanger.ac.uk/cgi-bin/utils/verify_login
+  sanger_login_service: https://enigma.sanger.ac.uk/LOGIN
+  proxy: http://wwwcache.sanger.ac.uk:3128
+ 
+training:
+  sanger_auth_service: https://intweb.sanger.ac.uk/cgi-bin/utils/verify_login
+  sanger_login_service: https://enigma.sanger.ac.uk/LOGIN
+  proxy: http://wwwcache.sanger.ac.uk:3128
+
+production:
+  sanger_auth_service: https://intweb.sanger.ac.uk/cgi-bin/utils/verify_login
+  sanger_login_service: https://enigma.sanger.ac.uk/LOGIN
+  proxy: http://wwwcache.sanger.ac.uk:3128
