@@ -1,7 +1,7 @@
 # bort.rb
 
-plugin 'exception_notifier', 
-  :git => 'http://github.com/rails/exception_notification.git', :revision => "2-3-stable"
+#plugin 'exception_notifier', 
+#  :git => 'http://github.com/rails/exception_notification.git', :revision => "2-3-stable"
 plugin 'rails-authorization-plugin',
   :git => 'git://github.com/DocSavage/rails-authorization-plugin.git'
 plugin 'acts_as_audited',
@@ -23,7 +23,7 @@ rake "gems:build"
  
 generate("audited_migration", "add_audits_table")
 generate("role_model", "role")
-generate(:model, "User", "login:string")
+generate(:model, "User", "login:string", "cached_cookie:string")
 
 # TODO: style
 # TODO: Role controller
@@ -41,8 +41,8 @@ def get_file(file_name)
 end
 
 file 'config/config.yml', get_file("config.yml")
-initializer 'exception_notifier',  get_file("exception_notifier.rb")
-initializer 'load_config',  get_file("load_config.rb")
+initializer 'exception_notifier.rb',  get_file("exception_notifier.rb")
+initializer 'load_config.rb',  get_file("load_config.rb")
 file 'app/models/user.rb', get_file("user.rb")
 file 'app/controllers/application_controller.rb', get_file("application_controller.rb")
 file 'app/views/application.html.erb', get_file("application.html.erb")

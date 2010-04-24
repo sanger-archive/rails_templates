@@ -10,7 +10,6 @@ class ApplicationController < ActionController::Base
 #  include ExceptionNotification::Notifier
   include SangerAuthentication
   before_filter :login_required
-  before_filter :extract_header_info
   filter_parameter_logging :password, :credential_1, :uploaded_data
   
   # Scrub sensitive parameters from your log
