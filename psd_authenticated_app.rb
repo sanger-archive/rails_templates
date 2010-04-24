@@ -20,6 +20,9 @@ rake "gems:unpack"
 rake "gems:build"
 #gem 'rubyist-aasm', :version => '2.1.1', 
 #  :lib => 'rubyist-aasm', :source => 'http://gems.github.com'
+
+route 'map.login "/login", :controller => "sessions", :action => "login"'
+route 'map.logout "/logout", :controller => "sessions", :action => "logout"'
  
 generate("audited_migration", "add_audits_table")
 generate("role_model", "role")
@@ -43,8 +46,14 @@ end
 file 'config/config.yml', get_file("config.yml")
 initializer 'exception_notifier.rb',  get_file("exception_notifier.rb")
 initializer 'load_config.rb',  get_file("load_config.rb")
+initializer 'release.rb',  get_file("release.rb")
+
+file 'app/helpers/application_helper.rb', get_file("application_helper.rb")
 file 'app/models/user.rb', get_file("user.rb")
 file 'app/controllers/application_controller.rb', get_file("application_controller.rb")
-file 'app/views/application.html.erb', get_file("application.html.erb")
+file 'app/views/layouts/application.html.erb', get_file("application.html.erb")
+file 'app/views/layouts/sessions.html.erb', get_file("sessions.html.erb")
+file 'app/controllers/sessions_controller.rb', get_file("sessions_controller.rb")
+file 'app/views/sessions/login.html.erb', get_file("login.html.erb")
 
 rake "db:migrate"
