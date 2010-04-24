@@ -7,7 +7,7 @@ plugin 'rails-authorization-plugin',
 plugin 'acts_as_audited',
   :git => 'git://github.com/collectiveidea/acts_as_audited.git'
 plugin 'sanger_authentication',
-  :git => '/Users/lj3/Projects/sequencescape/sanger_authentication.git'
+  :git => 'ssh://git.internal.sanger.ac.uk/repos/git/psd/sanger_authentication.git'
  
 gem 'mislav-will_paginate', :version => '~> 2.2.3', 
   :lib => 'will_paginate',  :source => 'http://gems.github.com'
