@@ -39,7 +39,7 @@ run("rm public/index.html")
 
 def get_file(file_name)
 #  template = File.expand_path(File.dirname(__FILE__) + "/templates/#{file_name}")
-  template = File.expand_path("/Users/lj3/Projects/sequencescape/rails_templates/templates/#{file_name}")
+  template = File.expand_path("#{ENV['HOME']}/Projects/sequencescape/rails_templates/templates/#{file_name}")
   File.read(template)
 end
 
@@ -51,6 +51,11 @@ initializer 'release.rb',  get_file("release.rb")
 file 'app/helpers/application_helper.rb', get_file("application_helper.rb")
 file 'app/models/user.rb', get_file("user.rb")
 file 'app/controllers/application_controller.rb', get_file("application_controller.rb")
+
+file 'public/stylesheets/screen.css', get_file("screen.css")
+file 'public/stylesheets/sessions.css', get_file("sessions.css")
+
+
 file 'app/views/layouts/application.html.erb', get_file("application.html.erb")
 file 'app/views/layouts/sessions.html.erb', get_file("sessions.html.erb")
 file 'app/controllers/sessions_controller.rb', get_file("sessions_controller.rb")
