@@ -1,12 +1,3 @@
-<% add :tab, I18n.t('navigation.tabs.studies').upcase => studies_path -%>
-<% if logged_in? && current_user.is_administrator? -%>
-  <% add :tab, I18n.t('navigation.tabs.admin').upcase => admin_path -%>
-<% end -%>
-<% add :tab, 'pipelines'.upcase => pipelines_path -%>
-<% add :tab, 'batches'.upcase => batches_path -%>
-<% add :tab, 'reception'.upcase => receptions_path -%>
-<% add :tab, 'Lab search'.upcase => new_search_path -%>
-
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
@@ -15,7 +6,7 @@
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <title>
       Sequencescape : <%= controller.controller_name.capitalize %> - <%= @page_name || controller.action_name %>
-    </title><%= stylesheet_link_tag "grids-min", "tabview", "screen", :media => "all", :cache => false %><%= javascript_include_tag :defaults, "tablekit", "popup", "scriptaculous.js?load=effects", :cache => false %><%= calendar_date_select_includes %>
+    </title><%= stylesheet_link_tag "grids-min", "tabview", "screen", :media => "all", :cache => false %><%= javascript_include_tag :defaults, "tablekit", "popup", "scriptaculous.js?load=effects", :cache => false %>
 	<%= javascript_include_tag 'xml_request.js' %>
 	<%= javascript_include_tag 'organism_validation.js' %>
 	<%= javascript_include_tag 'compoundform.js' %>
@@ -36,25 +27,18 @@
           <div id="description" class="bar">
             <ul>
               <li>
-                <span id="institute"><%= link_to I18n.t('application.institute'), I18n.t('application.institute_link') %></span>
+                <span id="institute"><%= link_to RELEASE.organisation, RELEASE.organisation_link %></span>
               </li>
             </ul>
           </div>
           <div id="user_links" class="bar">
-            <ul><% if logged_in? -%>
+            <ul><% if @current_user -%>
               <li>
-                <%= I18n.t('global_links.welcome') %> <%= link_to current_user.name, profile_path(current_user) %> ·
               </li>
               <li>
-                <%= I18n.t('global_links.workflow') %>
-                <% unless current_user.workflow.nil? -%>
-                <%= link_to current_user.workflow_name, edit_profile_path(current_user) %> ·
-                <% else -%>
-                <strong><%= link_to I18n.t('global_links.workflow_not_set'), edit_profile_path(current_user) %></strong> ·
-                <% end -%>
               </li>
               <li>
-                <%= link_to I18n.t('global_links.logout'), logout_path -%>
+                <%= link_to 'Log out', logout_path -%>
               </li>
               <% end -%>
             </ul>
@@ -63,16 +47,14 @@
         <div id="header">
           <div id='header_container'>
             <div id='search'>
-              <% form_tag searches_path, :method => :get do %>Search <%= text_field_tag :q, "", :size => 20, :type => "search", :placeholder => "samples, studies" %> <% end %>
             </div>
             <div id="app_name">
-              <%= link_to I18n.t('application.name').upcase, root_path %>
+              <%= link_to RELEASE.application_name.upcase, root_path %>
             </div>
           </div>
           <div id="tab_bar">
             <div id="tabs">
               <ul>
-                <%= render :partial => '/tab', :collection => @tabs.items %>
               </ul>
             </div><br clear="all" />
           </div>
@@ -89,19 +71,15 @@
         </div>
         <div id="menu" class="yui-b">
           <div class="callout">
-            <%= image_tag "information.png", :size => "16x16" %><span style="vertical-align: middle;">If you need help using Sequencescape please email:</span> <span style="text-align: center"><%= link_to "seq-help@sanger.ac.uk", "mailto:seq-help@sanger.ac.uk" %></span>
-          </div>
-          <div class="callout">
             <%= @title %>
             <div id="links">
-              <%= render :partial => "/menu" %>
             </div>
           </div>
         </div>
       </div>
       <div id="ft">
         <div id="footer">
-          <%= link_to "Blog", "http://intweb/Software/blog" %>· <%= link_to "Feedback", "mailto:seq-help@sanger.ac.uk" %><br />
+	  <%= link_to "Feedback", "mailto:seq-help@sanger.ac.uk" %><br />
           <%= link_to "Sequencescape", root_path %> <%= RELEASE.full %> <%= "(#{RAILS_ENV})" unless RAILS_ENV == "production" %> · A production tool from <%= link_to "Sequencing Informatics", "http://intweb/Software/launch" %>
         </div>
       </div>

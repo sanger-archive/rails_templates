@@ -10,7 +10,7 @@ class SessionsController < ApplicationController
 
   def login
     return unless request.post?
-    self.current_user = authenticate(params[:username], params[:password])
+    self.current_user = authenticate(params[:login], params[:password])
     if logged_in?
       flash[:notice] = "Logged in successfully"
       redirect_back_or_default(root_url)
@@ -23,7 +23,7 @@ class SessionsController < ApplicationController
 
   def logout
     self.current_user.forget_me if logged_in?
-    cookie.delete :WTSISignOn
+    cookies.delete :WTSISignOn
     flash[:notice] = "You have been logged out."
     redirect_back_or_default(root_url)
   end

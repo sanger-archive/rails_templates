@@ -8,8 +8,11 @@ require "ostruct"
 
 RELEASE = OpenStruct.new
 
-RELEASE.major = 4
-RELEASE.iteration = 12
+RELEASE.application_name = "Test app"
+RELEASE.organisation = "Wellcome Trust Sanger Institute"
+RELEASE.organisation_link = "http://www.sanger.ac.uk"
+RELEASE.major = 1 
+RELEASE.iteration = 0
 RELEASE.feature = 0
 RELEASE.bug_fix = 0
 featured = [RELEASE.major, RELEASE.iteration]
