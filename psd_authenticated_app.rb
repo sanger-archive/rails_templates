@@ -61,4 +61,7 @@ file 'app/views/layouts/sessions.html.erb', get_file("sessions.html.erb")
 file 'app/controllers/sessions_controller.rb', get_file("sessions_controller.rb")
 file 'app/views/sessions/login.html.erb', get_file("login.html.erb")
 
+file 'public/images/sequencescape.gif', get_file("sequencescape.gif")
+file 'public/images/scape-large-dark.jpg', get_file("scape-large-dark.jpg")
+
 rake "db:migrate"
