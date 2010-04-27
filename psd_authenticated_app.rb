@@ -65,3 +65,6 @@ file 'public/images/sequencescape.gif', get_file("sequencescape.gif")
 file 'public/images/scape-large-dark.jpg', get_file("scape-large-dark.jpg")
 
 rake "db:migrate"
+
+puts "Define a map.root in your config/route.rb"
+puts "Remember to remove view/layouts/<model>.html.erb when scaffolding"
