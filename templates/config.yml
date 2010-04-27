@@ -1,7 +1,9 @@
 development:
-  sanger_auth_service: https://intweb.sanger.ac.uk/cgi-bin/utils/verify_login
-  sanger_login_service: https://enigma.sanger.ac.uk/LOGIN
-  proxy: http://localhost:3128
+  # ruby vendor/plugins/sanger_authentication/auth_server.rb -p 3002
+  # remeber to unset local http_proxy environment variable
+  sanger_auth_service: http://localhost:3002/verify_login
+  sanger_login_service: http://localhost:3002/LOGIN
+  proxy: ""
 
 test:
   sanger_auth_service: https://intweb.sanger.ac.uk/cgi-bin/utils/verify_login
