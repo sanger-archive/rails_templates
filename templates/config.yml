@@ -5,22 +5,25 @@ development:
   sanger_login_service: http://localhost:3002/LOGIN
   proxy: ""
 
-test:
+authentication_service: &AUTHENTICATION_SERVICE
   sanger_auth_service: https://intweb.sanger.ac.uk/cgi-bin/utils/verify_login
   sanger_login_service: https://enigma.sanger.ac.uk/LOGIN
-  proxy: http://wwwcache.sanger.ac.uk:3128
- 
-staging:
-  sanger_auth_service: https://intweb.sanger.ac.uk/cgi-bin/utils/verify_login
-  sanger_login_service: https://enigma.sanger.ac.uk/LOGIN
-  proxy: http://wwwcache.sanger.ac.uk:3128
- 
-training:
-  sanger_auth_service: https://intweb.sanger.ac.uk/cgi-bin/utils/verify_login
-  sanger_login_service: https://enigma.sanger.ac.uk/LOGIN
+
+web_proxy: &WEB_PROXY
   proxy: http://wwwcache.sanger.ac.uk:3128
 
+test:
+  <<: *AUTHENTICATION_SERVICE
+  <<: *WEB_PROXY
+ 
+staging:
+  <<: *AUTHENTICATION_SERVICE
+  <<: *WEB_PROXY
+ 
+training:
+  <<: *AUTHENTICATION_SERVICE
+  <<: *WEB_PROXY
+
 production:
-  sanger_auth_service: https://intweb.sanger.ac.uk/cgi-bin/utils/verify_login
-  sanger_login_service: https://enigma.sanger.ac.uk/LOGIN
-  proxy: http://wwwcache.sanger.ac.uk:3128
+  <<: *AUTHENTICATION_SERVICE
+  <<: *WEB_PROXY

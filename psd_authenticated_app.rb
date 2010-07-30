@@ -3,10 +3,7 @@ def run_in_gemset(command)
 end
 
 def get_file(file_name)
-  # Really files need to be pulled from the remote git repo as finding the relative location
-  # of this file is..... tricky.  __FILE__ is not set as file is eval'd
-  template = File.join("/Users/sd9/projects/rails_templates",  "/templates/#{file_name}")
-  File.read(template)
+  open(File.join(File.dirname(template), 'templates', file_name)).read
 end
 
 # Set up Git in our shiny new Sanger application
