@@ -1,4 +1,5 @@
 /* This is a compass/sass stylesheet.  Documentation can be found at http://compass-style.org/docs/ */
+@import "compass";
 @import "compass/reset";
 
 body {
@@ -31,12 +32,12 @@ span.annotation_container {
   font-size: 10px;
 }
 
-div#comment_links a.small, div#comment_links a.small:link, div#comment_links a.small:visited {
-  color: #FF5B00;
+div#comment_links a.small {
+  @include link-colors(#ff5b00);
 }
 
-div#content a, div#content a:link, div#content a:visited {
-  color: #000088;
+div#content a {
+  @include link-colors(#000088, #0000ff);
   text-decoration: none;
 }
 
@@ -48,11 +49,8 @@ div.callout {
   font-size: 12px;
 }
 
-div#callout_alert a, div#callout_alert a:link, div#callout_alert a:visited {
-  color: #800;
-}
-
-div#callout_alert a:hover {
+div#callout_alert a {
+  @include link-colors(#800, #f00);
   color: #f00 !important;
 }
 
@@ -98,10 +96,6 @@ div#groups {
   margin-right: 30px;
 }
 
-div#content a:hover {
-  color: #0000ff;
-}
-
 div#footer {
   font-size: 10px;
   padding: 3px 0px 0px 10px;
@@ -110,13 +104,9 @@ div#footer {
   color: #666;
 }
 
-div#footer a, div#footer a:link, div#footer a:visited {
-  color: #3e87b3;
+div#footer a {
+  @include link-colors(#3e87b3, #880000);
   text-decoration: none;
-}
-
-div#footer a:hover {
-  color: #880000;
 }
 
 div#header {
@@ -134,9 +124,9 @@ div#header li {
   display: inline;
 }
 
-div#tabs a, div#tabs a:link, div#tabs a:visited {
+div#tabs a {
+  @include link-colors(#31353d);
   text-decoration: none;
-  color: #31353d;
   padding: 1px 15px 3px 15px;
   font-weight: bold;
 }
@@ -272,12 +262,12 @@ div#app_name {
   letter-spacing: 3px;
 }
 
-div#app_name a, div#app_name a:link, div#app_name a:visited div#app_name a:hover {
+div#app_name a {
+  @include link-colors(#efefef);
   text-decoration: none;
-  color: #efefef;
 }
 
-div.title a, div.title a:link, div.title a:visited div.title a:hover {
+div.title a {
   text-decoration: none;
 }
 
@@ -328,11 +318,9 @@ div.message {
 }
 
 div.flash {
+  @include border-top-radius(3px);
+
   background: #6CF;
-  -moz-border-radius-topright: 3px;
-  -webkit-border-top-right-radius: 3px;
-  -moz-border-radius-topleft: 3px;
-  -webkit-border-top-left-radius: 3px;
   border-top: 1px solid #57B2DF;
   border-left: 1px solid #57B2DF;
   border-right: 1px solid #57B2DF;
@@ -346,7 +334,7 @@ div.flash {
 
 #message_warning {
   background: green;
-  border-color: 1px solid ##d81f2a;
+  border-color: 1px solid #d81f2a;
   color: white;
 }
 
@@ -375,13 +363,9 @@ div#setting_links {
   font-size: 11px;
 }
 
-div#setting_links a, div#setting_links a:link, div#setting_links a:visited {
-  color: #4C4C4C;
-}
-
-div#setting_links a:hover {
-  color: #191919;
-  text-decoration: underline;
+div#setting_links a {
+  @include link-colors(#4c4c4c, #191919);
+  @include hover-link;
 }
 
 div#comments {
@@ -397,30 +381,22 @@ div#comments {
   font-size: 12px;
 }
 
-div#comments a, div#comments a:link, div#comments a:visited {
-  color: #FF8000;
+div#comments a {
+  @include link-colors(#ff8000);
 }
 
 div#comment_count {
   font-size: 11px;
 }
 
-div#message a, div#message a:link, div#message a:visited {
-  color: #ff9900;
+div#message a {
+  @include link-colors(#ff9900, #880000);
+  @include hover-link;
 }
 
-div#message a:hover {
-  color: #880000;
-  text-decoration: underline;
-}
-
-div#settings a, div#settings a:link, div#settings a:visited {
-  color: #009905;
-}
-
-div#settings a:hover {
-  color: #008000;
-  text-decoration: underline;
+div#settings a {
+  @include link-colors(#009905, #008000);
+  @include hover-link;
 }
 
 div.info {
@@ -469,8 +445,8 @@ div.helper_links {
   padding-top: 2px;
 }
 
-div.helper_links a, div.helper_links a:link, div.helper_links a:visited {
-  color: #888;
+div.helper_links a {
+  @include link-colors(#888);
 }
 
 td {
@@ -559,14 +535,9 @@ div#quick_links.staging {
   font-weight: bold;
 }
 
-div#quick_links a, div#quick_links a:link, div#quick_links a:visited {
-  color: #fff;
-  text-decoration: none;
-}
-
-div#quick_links a:hover {
-  color: #ff0;
-  text-decoration: underline;
+div#quick_links a {
+  @include link-colors(#fff, #ff0);
+  @include hover-link;
 }
 
 div#description {
@@ -585,7 +556,7 @@ div#logo_container {
   padding: 0px 3px 3px 3px;
 }
 
-div#sequencescape_logo {
+div#application_logo {
   background-color: #307CC9;
   width: 98px;
   height: 24px;
@@ -641,10 +612,9 @@ div#help {
 }
 
 div.help {
+  @include border-radius(3px);
   background: #FBFFC7;
   padding: 5px;
-  -moz-border-radius: 3px;
-  -webkit-border-radius: 3px;
   border: 1px solid #FC6;
   color: #A65200;
   margin-bottom: 15px;
@@ -911,15 +881,11 @@ div.critical {
   background: #E82E34;
 }
 
-div.critical a, div.critical a:link, div.critical a:visited {   color: #fff !important;
+div.critical a {
+  @include link-colors(#fff, #f00);
   font-weight: bold;
   text-decoration: underline !important;
 } 
-
-div.critical a:hover {
-  font-color: #f00;
-  text-decoration: underline !important;
-}
 
 div.quota_low {
   font-color: red;
@@ -971,22 +937,16 @@ div.title_link.small {
   padding-top: 1px; 
 }
 
-div.bright a, div.bright a:link, div.bright a:visited {
-  color: #fff !important;
-}
-
-div.bright a:hover {
-  text-decoration: underline !important;
+div.bright a {
+  @include link-colors(#fff);
+  @include hover-link;
 }
 
 div.quota_title {
+  @include border-top-radius(3px);
   background: #7BBDD8;
   padding: 3px 3px 3px 8px;
   color: #fff;
-  -moz-border-radius-topright: 3px;
-  -webkit-border-top-right-radius: 3px;
-  -moz-border-radius-topleft: 3px;
-  -webkit-border-top-left-radius: 3px;
 }
 
 div.grouper, div.setup {
@@ -1059,37 +1019,6 @@ td.boxed_title {
   color: #fff;
 }
 
-#quotaListContainer div{
-  width:100%;
-  overflow: hidden;
-}
-
-#quotaList {
-  margin:0;
-  padding:0;
-}
-
-#quotaList li{
-  list-style: none;
-}
-
-#quotaList div{
-  margin-bottom: 5px;
-  height: 25px;
-}
-
-#quotaList div#right{
-  width: 60%;
-  float: right;
-  text-align: left;
-}
-
-#quotaList div#left{
-  width: 38%;
-  float: left;
-  text-align: right;
-}
-
 #boxContainer {
   overflow: hidden;
   color: #333;
@@ -1123,10 +1052,9 @@ td.boxed_title {
 }
 
 div.error {
+  @include border-radius(3px);
   background: #ffcccc;
   padding: 0px 5px 0px 20px;
-  -moz-border-radius: 3px;
-  -webkit-border-radius: 3px;
   border: 2px solid red;
   color: black;
   margin-bottom:20px;
@@ -1156,10 +1084,9 @@ div.listing ul {
 }
 
 div.user_guide {
+  @include border-radius(3px);
   background: #D6FCCB;
   padding: 10px;
-  -moz-border-radius: 3px;
-  -webkit-border-radius: 3px;
   border: 1px solid #00DE7B;
   color: black;
   margin-bottom: 15px;
@@ -1169,10 +1096,9 @@ div.user_guide {
 }
 
 div.user_error {
+  @include border-radius(3px);
   background: #ffcccc;
   padding: 10px;
-  -moz-border-radius: 3px;
-  -webkit-border-radius: 3px;
   border: 1px solid #d00;
   color: black;
   margin-bottom: 15px;
@@ -1191,18 +1117,6 @@ div.centered {
 
 #loading {
   text-align: center;
-}
-
-#submission_button {
-  font-size: 1.1em;
-}
-
-#submission_submit {
-  font-size: 1.1em;
-}
-
-#submission_sample_group {
-  font-size: 1.1em;
 }
 
 input.enhanced {
@@ -1226,44 +1140,4 @@ padding-bottom:7px;
 .property_edit_info {
   color: #800;
 
-}
-#xproject_description {
-  border-top: 1px solid #ccc;
-  padding-top: 5px;
-  font-size: 10px;
-
-}
-#project_ebi_accession_number,
-#project_description,
-#sample_taxon_id,
-#sample_ebi_accession_number,
-#sample_strain_att,
-#sample_dna_source
-{
-}
-
-#property_group_SRArequirement  {
-  border-top: 1px solid #ccc;
-  padding-top: 5px;
-  #margin: 5px 30px 0px 30px;
-#  background: #ffcccc;
-}
-
-#property_group_SRAAN {
-  border-top: 1px solid #ccc;
-  padding-top: 5px;
-  #margin: 5px 30px 0px 30px;
-  background: #ccc;
-}
-#property_group_SRAattributes, #property_group_SRAlinks {
-  border-top: 1px solid #ccc;
-  padding-top: 5px;
-  background: #eeeeee;
-}
-
-th.property_group_SRAAN {
-  display: none;
-}
-td.property_group_SRAAN {
-  display: none;
 }
