@@ -6,7 +6,7 @@
 
 require "ostruct"
 
-VERSION = { :major => 1, :iteration => 0, :feature => 0, :bug_fix => 0 }.tap do |version|
+APPLICATION_VERSION = { :major => 1, :iteration => 0, :feature => 0, :bug_fix => 0 }.tap do |version|
   class << version
     def version_string_from(*values)
       values.compact.map { |k| self[k] }.join('.')
@@ -19,6 +19,6 @@ RELEASE = OpenStruct.new(
   :organisation       => 'Wellcome Trust Sanger Institute',
   :organisation_link  => 'http://www.sanger.ac.uk/',
   :api_version        => '0.3',
-  :full               => VERSION.version_string_from(:major, :iteration, :feature, :bugfix),
-  :featured           => VERSION.version_string_from(:major, :iteration, ((VERSION[:feature] > 0) ? :feature : nil))
+  :full               => APPLICATION_VERSION.version_string_from(:major, :iteration, :feature, :bugfix),
+  :featured           => APPLICATION_VERSION.version_string_from(:major, :iteration, ((APPLICATION_VERSION[:feature] > 0) ? :feature : nil))
 ).freeze

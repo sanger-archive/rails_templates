@@ -51,32 +51,27 @@ git_commit('Initial project setup') do
   # Remove some unused files
   remove_unused_files('public/index.html', 'README')
 
-  initializer 'exception_notifier.rb'
-  initializer 'load_config.rb'
+  initializer  'exception_notifier.rb'
+  initializer  'load_config.rb'
   erb_template 'config/initializers/release.rb'
 
-  # Setup the authentication
-  authentication_install
-
-  # TODO: style
-  # TODO: Role controller
-
-  file 'db/seeds.rb'
+  # Standard application setup ...
+  file  'db/seeds.rb'
   mkdir 'db/seeds'
-
-  file 'config/config.yml'
-
-  compass_install
-  compass_stylesheets('screen')
+  file  'config/config.yml'
+  file  'public/images/application.gif'
+  file  'public/images/application-large-dark.jpg'
 
   file 'app/controllers/application_controller.rb'
   file 'app/helpers/application_helper.rb'
   file 'app/views/layouts/application.html.erb'
 
-  file 'public/images/sequencescape.gif'
-  file 'public/images/scape-large-dark.jpg'
+  # Setup compass/sass stylesheets ...
+  compass_install
+  compass_stylesheets('screen')
 
-  # rake "db:migrate"
+  # Setup the authentication
+  authentication_install
 
   puts "Define a map.root in your config/route.rb"
   puts "Remember to remove view/layouts/<model>.html.erb when scaffolding"
