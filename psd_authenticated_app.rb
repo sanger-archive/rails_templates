@@ -18,6 +18,7 @@ git_commit('Initial project setup') do
     gem 'exception_notifier'
     gem 'acts_as_audited'
     gem 'sqlite3-ruby', '~>1.2.5'
+    gem 'compass', '~>0.10.2'
 
     group :development do
       gem 'ruby-debug'
@@ -65,11 +66,12 @@ git_commit('Initial project setup') do
 
   file 'config/config.yml'
 
+  compass_install
+  compass_stylesheets('screen')
+
   file 'app/controllers/application_controller.rb'
   file 'app/helpers/application_helper.rb'
   file 'app/views/layouts/application.html.erb'
-
-  file 'public/stylesheets/screen.css'
 
   file 'public/images/sequencescape.gif'
   file 'public/images/scape-large-dark.jpg'

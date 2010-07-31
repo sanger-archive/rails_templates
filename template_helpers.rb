@@ -254,3 +254,18 @@ def authentication_install
   file 'app/views/sessions/login.html.erb'
   file 'public/stylesheets/sessions.css'
 end
+
+#####################################################################################################################
+# Compass helpers
+#####################################################################################################################
+# Installs compass into the current application
+def compass_install
+  log('compass', 'Installing compass into the application ...')
+  run("compass init rails --sass-dir app/stylesheets --css-dir public/stylesheets .")
+end
+
+# Installs compass stylesheets
+def compass_stylesheets(*stylesheets)
+  log('compass', 'Installing compass stylesheets ...')
+  stylesheets.each { |stylesheet| file(File.join('app', 'stylesheets', "#{ stylesheet }.scss")) }
+end
