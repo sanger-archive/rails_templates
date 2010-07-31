@@ -82,13 +82,25 @@ end
 # Adds to the .gitignore file
 def git_ignore(*files)
   log('git', 'Updating .gitignore ...')
-  append_file('.gitignore', files.join("\n"))
+  append_file('.gitignore', files.join("\n") << "\n")
 end
 
 # Touches .gitignore files in each of the directories
 def git_ignore_directories(*directories)
   log('git', 'Putting .gitignore files in some directories ...')
   run("touch #{ directories.map { |d| File.join(d, '.gitignore') }.join(' ') }", false)
+end
+
+# Transactional git initialisation
+def git_commit(message, path = '.', &block)
+  unless File.directory?(File.join(root, '.git'))
+    log('git', 'Initializing git repository')
+    git(:init)
+  end
+  yield
+  log('git', "Commiting with message #{ message.inspect }")
+  git(:add => path)
+  git(:commit => "-a -m #{ message.inspect }")
 end
 
 #####################################################################################################################
@@ -203,7 +215,7 @@ def setup_rails_for_bundler
     Rails.boot!
   }.strip
 
-  git_ignore('.bundler')
+  git_ignore('.bundle')
 end
 
 #####################################################################################################################
