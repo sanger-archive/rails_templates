@@ -52,7 +52,7 @@ git_commit('Initial project setup') do
 
   initializer 'exception_notifier.rb'
   initializer 'load_config.rb'
-  initializer 'release.rb'
+  erb_template 'config/initializers/release.rb'
 
   # Setup the authentication
   authentication_install
