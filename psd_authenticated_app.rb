@@ -60,6 +60,9 @@ git_commit('Initial project setup') do
   # TODO: style
   # TODO: Role controller
 
+  file 'db/seeds.rb'
+  mkdir 'db/seeds'
+
   file 'config/config.yml'
 
   file 'app/controllers/application_controller.rb'
