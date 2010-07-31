@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <title>
-      Sequencescape : <%= controller.controller_name.capitalize %> - <%= @page_name || controller.action_name %>
+      <%= h(RELEASE.application_name) %> : <%= controller.controller_name.capitalize %> - <%= @page_name || controller.action_name %>
     </title><%= stylesheet_link_tag "grids-min", "tabview", "screen", :media => "all", :cache => false %><%= javascript_include_tag :defaults, "tablekit", "popup", "scriptaculous.js?load=effects", :cache => false %>
 	<%= javascript_include_tag 'xml_request.js' %>
 	<%= javascript_include_tag 'organism_validation.js' %>
@@ -79,8 +79,8 @@
       </div>
       <div id="ft">
         <div id="footer">
-	  <%= link_to "Feedback", "mailto:seq-help@sanger.ac.uk" %><br />
-          <%= link_to "Sequencescape", root_path %> <%= RELEASE.full %> <%= "(#{RAILS_ENV})" unless RAILS_ENV == "production" %> · A production tool from <%= link_to "Sequencing Informatics", "http://intweb/Software/launch" %>
+          <%= link_to "Feedback", "mailto:seq-help@sanger.ac.uk" %><br />
+          <%= link_to RELEASE.application_name, root_path %> <%= RELEASE.full %> <%= "(#{Rails.env})" unless Rails.env == "production" %> · A production tool from <%= link_to "Sequencing Informatics", "http://intweb/Software/launch" %>
         </div>
       </div>
     </div>

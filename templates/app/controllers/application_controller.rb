@@ -11,7 +11,4 @@ class ApplicationController < ActionController::Base
   include SangerAuthentication
   before_filter :login_required
   filter_parameter_logging :password, :credential_1, :uploaded_data
-  
-  # Scrub sensitive parameters from your log
-  # filter_parameter_logging :password
 end

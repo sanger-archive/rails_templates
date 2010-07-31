@@ -54,6 +54,14 @@ def mkdir(name)
   run("mkdir -p #{ name.inspect }")
 end
 
+require 'erb'
+def erb_template(destination)
+  source = "#{ destination }.erb"
+
+  log('erb', "Processing '#{ source }' to '#{ destination }' ...")
+  file(destination, ERB.new(get_file(source), 0, '-').result(binding))
+end
+
 #####################################################################################################################
 # RVM helpers
 #####################################################################################################################
