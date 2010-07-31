@@ -50,6 +50,10 @@ def file_with_templates(name, data = nil, log_action = true, &block)
 end
 alias_method_chain(:file, :templates)
 
+def mkdir(name)
+  run("mkdir -p #{ name.inspect }")
+end
+
 #####################################################################################################################
 # RVM helpers
 #####################################################################################################################
