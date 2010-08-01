@@ -7,7 +7,8 @@ git_commit('Initial project setup') do
   rvm_create_rc(application_name)
 
   # Setup Bundler
-  bundler_install do
+  bundler_install_into_rails
+  bundle do
     source 'http://rubygems.org'
 
     gem 'rails', '~>2.3'
@@ -18,7 +19,6 @@ git_commit('Initial project setup') do
     gem 'exception_notifier'
     gem 'acts_as_audited'
     gem 'sqlite3-ruby', '~>1.2.5'
-    gem 'compass', '~>0.10.2'
 
     group :development do
       gem 'ruby-debug'
@@ -62,17 +62,18 @@ git_commit('Initial project setup') do
   file  'public/images/application.gif'
   file  'public/images/application-large-dark.jpg'
 
-  file 'app/controllers/application_controller.rb'
   file 'app/helpers/application_helper.rb'
   file 'app/views/layouts/application.html.erb'
 
   # Setup compass/sass stylesheets ...
   compass_install
-  compass_stylesheets('screen')
+  compass_stylesheets('_flash-messages', 'screen', 'application')
+  compass_plugin('yui', 'http://github.com/chriseppstein/yui-compass-plugin.git')
 
   # Setup the authentication
   authentication_install
 
-  puts "Define a map.root in your config/route.rb"
-  puts "Remember to remove view/layouts/<model>.html.erb when scaffolding"
+  # Temporary site controller for all applications
+  generate('controller', 'site index')
+  route('map.root :controller => "site"')
 end

@@ -1,7 +1,20 @@
-/* This is a compass/sass stylesheet.  Documentation can be found at http://compass-style.org/docs/ */
+// This is a compass/sass stylesheet.  Documentation can be found at http://compass-style.org/docs/ 
 @import "compass";
 @import "compass/reset";
+@import "yui";
 
+/* Setup the YUI stuff (with some alterations!) */
+@include yui-grids-init;
+div#bd { padding: 10px; }
+div#doc3 { 
+  @include yui-document("fluid"); 
+  margin: 0;
+}
+div.yui-t4 { 
+  @include yui-two-column-right-template(180px); 
+}
+
+/* General style rules */
 body {
   margin: 0px;
   padding: 0px 0px 0px 0px;
@@ -10,24 +23,168 @@ body {
   text-align: left;
 }
 
-div#bd {
-  padding: 10px;
-}
-
-div#doc3 {
-  margin: 0px;
-}
-
 img {
   border: 0px;
 }
 
+/* Main application template layout rules */
+@import "flash-messages";
+
+div.bar ul {
+  @include inline-list;
+}
+
+div#logo_container {
+  background-color: transparent;
+  background-image: url(/images/logo_bg.png);
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  margin-left: 5px;
+  padding: 0px 3px 3px 3px;
+
+  div#application_logo {
+    background-color: #307CC9;
+    width: 98px;
+    height: 24px;
+    padding: 5px 0px 0px 0px;
+  }
+}
+
+div#quick_links {
+  @include clearfix;
+
+  background: #31353d;
+  color: #efefef;
+  font-size: 12px;
+  border-top: 3px solid #055694;
+  padding: 3px 10px 2px 10px;
+
+  &.staging {
+    background: #000000 url(/images/staging.png);
+    border-top: 3px solid #000000;
+    font-weight: bold;
+  }
+
+  a {
+    @include link-colors(#ffffff, #ffff00);
+    @include hover-link;
+  }
+
+  div#description {
+    float: left;
+    padding-left: 100px;
+    width: 30%;
+
+    span#institute {
+      position: relative;
+      left: 0px;
+      padding-left: 5px;
+    }
+  }
+
+  div#user_links {
+    float: right;
+    width: 45%;
+    text-align: right;
+    margin-top: -2px;
+    font-size: 11px;
+
+    ul {
+      margin-top: 2px;
+    }
+  }
+}
+
+div#header {
+  background: #3e87b3;
+  color: #efefef;
+
+  ul { @include inline-list; }
+
+  div#search {
+    float: right;
+    text-align: right;
+    font-size: 11px;
+    padding-top: 4px;
+    padding-right: 5px;
+  }
+
+  div#app_name {
+    padding: 10px 0px 12px 8px;
+    font-size: 8px;
+    letter-spacing: 3px;
+
+    a {
+      @include link-colors(#efefef);
+      text-decoration: none;
+    }
+  }
+
+  div#tab_bar {
+    @include clearfix;
+    background: #aad4f4;
+    border-bottom: 1px solid #bbbbbb;
+
+    div#tabs {
+      background: #aad4f4;
+      color: #31353d;
+      font-size: 12px;
+      float: left;
+      min-height: 1em;
+
+      ul { padding-top: 1px; }
+
+      a {
+        @include link-colors(#31353d);
+        text-decoration: none;
+        padding: 1px 15px 3px 15px;
+        font-weight: bold;
+
+        &:hover {
+          background: #3e87b3;
+          color: #ffffff;
+        }
+      }
+    }
+  }
+}
+
+div#menu {
+  font-size: 1em;
+
+  div#links ul {
+    padding: 5px;
+    margin: 10px 0px 0px 0px;
+    list-style: none;
+    line-height: 20px;
+    border-top: 1px solid #aad4f4;
+    background: #d2e2f7;
+    color: #222931;
+  }
+}
+
+div#footer {
+  font-size: 10px;
+  padding: 3px 0px 0px 10px;
+  line-height: 17px;
+  padding-bottom: 20px;
+  color: #666666;
+
+  a {
+    @include link-colors(#3e87b3, #880000);
+    text-decoration: none;
+  }
+}
+
+// TODO[md12]: Potentially these are all supposed to be in app/stylesheets/application.scss for sequencescape
+/* Other rules */
 div.main {
   font-size: 13px;
 }
 
 span.annotation_container {
-  border-top: 1px solid #ccc;
+  border-top: 1px solid #cccccc;
   padding-top: 5px;
   font-size: 10px;
 }
@@ -50,13 +207,13 @@ div.callout {
 }
 
 div#callout_alert a {
-  @include link-colors(#800, #f00);
-  color: #f00 !important;
+  @include link-colors(#880000, #ff0000);
+  color: #ff0000 !important;
 }
 
 div.callout_alert {
   border-top: 1px solid #FF8000;
-  background: #FF6;
+  background: #ffff66;
   font-weight: bold;
   color: #FF8000;
   padding: 5px;
@@ -96,95 +253,30 @@ div#groups {
   margin-right: 30px;
 }
 
-div#footer {
-  font-size: 10px;
-  padding: 3px 0px 0px 10px;
-  line-height: 17px;
-  padding-bottom: 20px;
-  color: #666;
-}
-
-div#footer a {
-  @include link-colors(#3e87b3, #880000);
-  text-decoration: none;
-}
-
-div#header {
-  background: #3e87b3;
-  color: #efefef;
-}
-
-div#header ul {
-  padding: 0px;
-  margin: 0px;
-  list-style: none;
-}
-
-div#header li {
-  display: inline;
-}
-
-div#tabs a {
-  @include link-colors(#31353d);
-  text-decoration: none;
-  padding: 1px 15px 3px 15px;
-  font-weight: bold;
-}
-
 th {
   text-align: left;
 }
 
-div#tabs a:hover {
-  background: #3e87b3;
-  color: #fff;
-}
-
-div#tabs ul {
-  padding-top: 1px;
-}
-
 td.blank {
-  color: #888;
+  color: #888888;
 }
 
 div.callout_simple {
-  border-right: 1px solid #bbb;
-  border-bottom: 1px solid #bbb;
-}
-
-#commentBox {
-  overflow: hidden;
-}
-
-#commentBox div#right{
-  padding: 0px 5px 5px 8px;
-  font-size: 10px;
-  color: #666;
-  width: 25%;
-  float: right;
-}
-
-#commentBox div#left{
-  background: #ffffcc;
-  border-top: 1px solid #FF8000;
-  padding: 5px 5px 5px 8px;
-  margin-bottom:15px;
-  width: 70%;
-  float: left;
+  border-right: 1px solid #bbbbbb;
+  border-bottom: 1px solid #bbbbbb;
 }
 
 td.boxed {
-  border-right: 1px solid #bbb;
-  border-bottom: 1px solid #bbb;
+  border-right: 1px solid #bbbbbb;
+  border-bottom: 1px solid #bbbbbb;
 }
 
 td.faded {
-  color: #bbb;
+  color: #bbbbbb;
 }
 
 td.exceeded {
-  color: #800;
+  color: #880000;
 }
 
 td.complete {
@@ -192,52 +284,35 @@ td.complete {
 }
 
 div.notice {
-  border: 1px solid #f66;
+  border: 1px solid #ff6666;
   padding: 5px;
   margin-bottom: 7px;
-  background: #faa;
+  background: #ffaaaa;
 }
 
-td.empty_cell{
-  background: #99CCFF;
-  padding: 5px;
-}
-
-td.good_cell{
-  background: #99FF99;
-}
-
-td.bad_cell{
-  background: #CC3333;
-}
+td.empty_cell { background: #99CCFF; padding: 5px; } 
+td.good_cell  { background: #99FF99; }
+td.bad_cell   { background: #CC3333; }
 
 ul.light {
   list-style: square;
-  color: #888;
+  color: #888888;
 }
 
-span.lighten {
-  color: #aaa;
-}
-
-span.pass {
-  color: #008000;
-}
-
-span.fail {
-  color: #666;
-}
+span.lighten { color: #aaaaaa; } 
+span.pass    { color: #008000; }
+span.fail    { color: #666666; }
 
 tr.alternate {
   background: #dfdfdf;
 }
 
 .hover_table tr:hover {
-  background: #ffc;
+  background: #ffffcc;
 }
 
 td.total {
-  border-top: 1px solid #ccc;
+  border-top: 1px solid #cccccc;
 }
 
 div#content-name {
@@ -256,153 +331,60 @@ div#title {
   padding: 15px 0px 12px 10px;
 }
 
-div#app_name {
-  padding: 10px 0px 12px 8px;
-  font-size: 8px;
-  letter-spacing: 3px;
-}
-
-div#app_name a {
-  @include link-colors(#efefef);
-  text-decoration: none;
-}
-
 div.title a {
   text-decoration: none;
 }
 
-div#tab_bar {
-  background: #aad4f4;
-  border-bottom: 1px solid #bbb;
+@mixin bordered-left-top-right($border-color) {
+  border {
+    top: 1px solid $border-color;
+    left: 1px solid $border-color;
+    right: 1px solid $border-color;
+  }
 }
 
-div#tabs {
-  background: #aad4f4;
-  color: #31353d;
+@mixin message-style-box($background-color, $border-color, $link-color, $link-hover-color: false) {
+  @include bordered-left-top-right($border-color);
+
+  background: $background-color;
+  margin: 0 auto;
+  padding: 5px 10px 5px 10px;
+  margin-right: 250px;
+  display: block;
+  line-height: 16px;
   font-size: 12px;
-  float: left;
-}
 
-div#search {
-  float: right;
-  text-align: right;
-  font-size: 11px;
-  padding-top: 4px;
-  padding-right: 5px;
+  a { @include link-colors(#009905, #008000); }
 }
 
 div.settings {
-  background: #B6FF84;
-  border-top: 1px solid #090;
-  border-left: 1px solid #090;
-  border-right: 1px solid #090;
-  margin: 0 auto;
-  padding: 5px 10px 5px 10px;
-  margin-right: 250px;
-  display: block;
-  line-height: 16px;
-  font-size: 12px;
+  @include message-style-box(#b6ff84, #009900, #009905, #008000);
+  a { @include hover-link; }
 }
 
 div.message {
-  background: #ffffcc;
-  border-top: 1px solid #ff9900;
-  border-left: 1px solid #ff9900;
-  border-right: 1px solid #ff9900;
-  margin: 0 auto;
-  padding: 5px 10px 5px 10px;
-  margin-right: 250px;
-  display: block;
-  line-height: 16px;
-  font-size: 12px;
-}
-
-div.flash {
-  @include border-top-radius(3px);
-
-  background: #6CF;
-  border-top: 1px solid #57B2DF;
-  border-left: 1px solid #57B2DF;
-  border-right: 1px solid #57B2DF;
-  color: #fff;
-  font-weight: bold;
-  padding: 5px 10px 5px 10px;
-  display: block;
-  line-height: 16px;
-  font-size: 12px;
-}
-
-#message_warning {
-  background: green;
-  border-color: 1px solid #d81f2a;
-  color: white;
-}
-
-#message_warning {
-  background: yellow;
-  border-color: 1px solid #fadf00;
-  color: black;
-}
-
-#message_error {
-  background: red;
-  border-color: 1px solid #76b900;
-  color: white;
+  @include message-style-box(#ffffcc, #ff9900, #ff9900, #880000);
+  a { @include hover-link; }
 }
 
 div#setting_links {
-  background: #CCC;
-  border-bottom: 1px solid #ccc;
-  border-left: 1px solid #ccc;
-  border-right: 1px solid #ccc;
-  margin: 0 auto;
-  padding: 5px 10px 5px 10px;
-  margin-right: 250px;
-  display: block;
-  line-height: 16px;
-  font-size: 11px;
-}
-
-div#setting_links a {
-  @include link-colors(#4c4c4c, #191919);
-  @include hover-link;
+  @include message-style-box(#cccccc, #cccccc, #4c4c4c, #191919);
+  a { @include hover-link; }
 }
 
 div#comments {
-  background: #ffffcc;
-  border-bottom: 1px solid #FFD665;
-  border-left: 1px solid #FFD665;
-  border-right: 1px solid #FFD665;
-  margin: 0 auto;
-  padding: 5px 10px 5px 10px;
-  margin-right: 250px;
-  display: block;
-  line-height: 16px;
-  font-size: 12px;
-}
-
-div#comments a {
-  @include link-colors(#ff8000);
+  @include message-style-box(#ffffcc, #ffd665, #ff8000);
+  a { @include link-colors(#ff8000); }
 }
 
 div#comment_count {
   font-size: 11px;
 }
 
-div#message a {
-  @include link-colors(#ff9900, #880000);
-  @include hover-link;
-}
-
-div#settings a {
-  @include link-colors(#009905, #008000);
-  @include hover-link;
-}
-
 div.info {
   margin: 5px 30px 15px 30px;
   padding-bottom: 5px;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid #cccccc;
 }
 
 div.section {
@@ -412,7 +394,7 @@ div.section {
 
 td.date {
   font-size: 10px;
-  color: #666;
+  color: #666666;
 }
 
 td.right {
@@ -433,20 +415,20 @@ td.last {
 }
 
 div.crumbs {
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid #cccccc;
   padding-bottom: 5px;
 }
 
 div.helper_links {
   font-size: 10px;
   text-align: right;
-  border-top: 1px solid #ccc;
+  border-top: 1px solid #cccccc;
   margin-top: 10px;
   padding-top: 2px;
 }
 
 div.helper_links a {
-  @include link-colors(#888);
+  @include link-colors(#888888);
 }
 
 td {
@@ -460,9 +442,9 @@ td.note {
 }
 
 td.bar {
-  border-right: 1px solid #ccc;
-  border-left: 1px solid #ccc;
-  border-bottom: 1px solid #ccc;
+  border-right: 1px solid #cccccc;
+  border-left: 1px solid #cccccc;
+  border-bottom: 1px solid #cccccc;
 }
 
 td.segment {
@@ -474,23 +456,23 @@ td.filled {
 }
 
 td.label, th.label, td.nosort, th.nosort {
-  border-bottom: 1px solid #888;
+  border-bottom: 1px solid #888888;
   font-size: 10px;
 }
 
 td.summary, th.summary {
-  border-top: 1px solid #888;
+  border-top: 1px solid #888888;
   font-size: 10px;
 }
 
 .fieldWithErrors {
-    display: inline;
+  display: inline;
   padding: 0px;
   margin: 0px;
-}
 
-.fieldWithErrors input, .fieldWithErrors select {
+  input, select {
     background-color: #FFB3B5;
+  }
 }
 
 .formError {
@@ -507,7 +489,7 @@ td.strong {
 }
 
 td.faint {
-  color: #666;
+  color: #666666;
 }
 
 td.item {
@@ -521,72 +503,8 @@ div.detail {
   padding-bottom: 5px;
 }
 
-div#quick_links {
-  background: #31353d;
-  color: #efefef;
-  font-size: 12px;
-  border-top: 3px solid #055694;
-  padding: 3px 10px 2px 10px;
-}
-
-div#quick_links.staging {
-  background: #000 url(/images/staging.png);
-  border-top: 3px solid #000;
-  font-weight: bold;
-}
-
-div#quick_links a {
-  @include link-colors(#fff, #ff0);
-  @include hover-link;
-}
-
-div#description {
-  float: left;
-  padding-left: 100px;
-  width: 30%;
-}
-
-div#logo_container {
-  background-color: transparent;
-  background-image: url(/images/logo_bg.png);
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  margin-left: 5px;
-  padding: 0px 3px 3px 3px;
-}
-
-div#application_logo {
-  background-color: #307CC9;
-  width: 98px;
-  height: 24px;
-  padding: 5px 0px 0px 0px;
-}
-
-div#user_links {
-  float: right;
-  width: 45%;
-  text-align: right;
-  margin-top: -2px;
-  font-size: 11px;
-}
-
-div#user_links ul {
-  margin-top: 2px;
-}
-
-div.bar ul {
-  margin: 0px;
-  padding: 0px;
-  list-style: none;
-}
-
 ul#user_links {
   padding-top: 0px;
-}
-
-div.bar li {
-  display: inline;
 }
 
 div#view {
@@ -599,12 +517,6 @@ div#view-menu {
   float: right;
 }
 
-span#institute {
-  position: relative;
-  left: 0px;
-  padding-left: 5px;
-}
-
 div#help {
   background: #A0D6FC;
   padding: 5px 5px 5px 10px;
@@ -615,19 +527,9 @@ div.help {
   @include border-radius(3px);
   background: #FBFFC7;
   padding: 5px;
-  border: 1px solid #FC6;
+  border: 1px solid #ffcc66;
   color: #A65200;
   margin-bottom: 15px;
-}
-
-div#links ul {
-  padding: 5px;
-  margin: 10px 0px 0px 0px;
-  list-style: none;
-  line-height: 20px;
-  border-top: 1px solid #aad4f4;
-  background: #d2e2f7;
-  color: #222931;
 }
 
 div.link_title {
@@ -637,21 +539,15 @@ div.link_title {
   font-weight: bold;
 }
 
-div#yield h1 {
-  margin: 0px;
-}
-
 div#yield {
-  background: #fff;
-  border: 1px solid #ccc;
+  @include min-height(600px);
+  background: #ffffff;
+  border: 1px solid #cccccc;
   padding: 10px 10px 25px 10px;
   font-size: 12px;
-  min-height: 600px;
   line-height: 16px;
-}
 
-div#menu {
-  font-size: 1em;
+  h1 { margin: 0px; }
 }
 
 div#comment_links {
@@ -691,7 +587,7 @@ div#fields h2 {
   font-weight: bold;
   padding: 0px 0px 5px 0px;
   margin: 0px 0px 10px 0px;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid #cccccc;
 }
 
 table.editor td {
@@ -728,55 +624,47 @@ div.tab_control {
   padding: 5px;
   margin-top: 20px;
   background: #efefef;
-  border-top: 1px dotted #ccc;
+  border-top: 1px dotted #cccccc;
 }
 
-div.next_tab {
-  width: 45%;
-  float: right;
-  text-align: right;
-}
-
-div.previous_tab {
-  width: 45%;
-  float: left;
-}
+div.next_tab     { width: 45%; float: right; text-align: right; }
+div.previous_tab { width: 45%; float: left; }
 
 div.helper {
   font-size: 11px;
-  color: #666;
+  color: #666666;
   padding-left: 12px;
 }
 
 td.help_field {
-  color: #666;
+  color: #666666;
   font-size: 11px;
 }
 
 div.popup {
   max-width: 600px;
-  border-right: 1px solid #666;
-  border-bottom: 1px solid #666;
+  border-right: 1px solid #666666;
+  border-bottom: 1px solid #666666;
   padding: 3px;
-  background-color: #fff;
+  background-color: #ffffff;
   font-size: 11px;
   position: absolute;
-}
 
-div.popup ul {
-  margin: 0px;
-  padding: 0px;
-  list-style: none;
-}
+  ul {
+    margin: 0px;
+    padding: 0px;
+    list-style: none;
 
-div.popup li {
-  line-height: 18px;
-}
+    li {
+      line-height: 18px;
 
-div.popup li.divider {
-  margin-top: 3px;
-  padding-top: 3px;
-  border-top: 1px solid #CEDEF2;
+      &.divider {
+        margin-top: 3px;
+        padding-top: 3px;
+        border-top: 1px solid #CEDEF2;
+      }
+    }
+  }
 }
 
 #popup_overlay {
@@ -810,82 +698,70 @@ div.simple_pagination {
 }
 
 div.simple_pagination ul {
-  margin: 0;
-  padding: 0;
-}
-
-div.simple_pagination li {
-  list-style-type: none;
-  display: inline;
+  @include inline-list;
 }
 
 .pagination{
-padding: 2px;
-}
-
-.pagination ul{
-margin: 0;
-padding: 0;
-text-align: left; /*Set to "right" to right align pagination interface*/
-font-size: 16px;
-}
-
-.pagination li{
-list-style-type: none;
-display: inline;
-padding-bottom: 1px;
-}
-
-.pagination a, .pagination a:visited{
-padding: 0 5px;
-border: 1px solid #9aafe5;
-text-decoration: none;
-color: #2e6ab1;
-}
-
-.pagination {
+  padding: 2px;
   text-align: center;
-}
-.pagination a:hover, .pagination a:active{
-border: 1px solid #2b66a5;
-color: #000;
-background-color: #FFFF80;
-}
 
-.pagination a.currentpage{
-background-color: #2e6ab1;
-color: #FFF !important;
-border-color: #2b66a5;
-font-weight: bold;
-cursor: default;
-}
+  ul {
+    @include inline-list;
 
-.pagination a.disablelink, .pagination a.disablelink:hover{
-background-color: white;
-cursor: default;
-color: #929292;
-border-color: #929292;
-font-weight: normal !important;
-}
+    text-align: left; /*Set to "right" to right align pagination interface*/
+    font-size: 16px;
+    
+    li { padding-bottom: 1px; }
+  }
 
-.pagination a.prevnext{
-font-weight: bold;
+  a, a:visited {
+    padding: 0 5px;
+    border: 1px solid #9aafe5;
+    text-decoration: none;
+    color: #2e6ab1;
+  }
+
+  a:hover, a:active {
+    border: 1px solid #2b66a5;
+    color: #000000;
+    background-color: #FFFF80;
+  }
+
+  a.currentpage {
+    font-weight: bold;
+    background-color: #2e6ab1;
+    color: #ffffff !important;
+    border-color: #2b66a5;
+    cursor: default;
+  }
+
+  a.disablelink, a.disablelink:hover {
+    font-weight: normal !important;
+    background-color: #ffffff;
+    color: #929292;
+    border-color: #929292;
+    cursor: default;
+  }
+
+  a.prevnext {
+    font-weight: bold;
+  }
 }
 
 div.critical {
-  border: 2px solid #800;
+  border: 2px solid #880000;
   padding: 5px;
-  color: #fff;
+  color: #ffffff;
   font-weight:bold;
   margin: 5px 10px 5px 0px;
   background: #E82E34;
-}
 
-div.critical a {
-  @include link-colors(#fff, #f00);
-  font-weight: bold;
-  text-decoration: underline !important;
-} 
+  a {
+    @include link-colors(#ffffff, #ff0000);
+    font-weight: bold;
+    text-decoration: underline !important;
+  } 
+}
 
 div.quota_low {
   font-color: red;
@@ -901,7 +777,7 @@ h1 {
 div.subtitle {
   font-size: 11px;
   padding-top: 3px;
-  color: #666;
+  color: #666666;
 }
 
 div.setup {
@@ -910,11 +786,11 @@ div.setup {
 }
 
 td.setup_item {
-  color: #333;
+  color: #333333;
 }
 
 div.quota, div.pagination {
-  color: #333;
+  color: #333333;
   padding-left: 3px;
   background: #CBDCEF;
   border: 1px solid #7BBDD8;
@@ -930,15 +806,15 @@ div.title_link {
   width: 100%;
   text-align: right;
   padding-right: 5px; 
-}
 
-div.title_link.small {
-  font-size: 10px;
-  padding-top: 1px; 
+  &.small {
+    font-size: 10px;
+    padding-top: 1px; 
+  }
 }
 
 div.bright a {
-  @include link-colors(#fff);
+  @include link-colors(#ffffff);
   @include hover-link;
 }
 
@@ -946,12 +822,12 @@ div.quota_title {
   @include border-top-radius(3px);
   background: #7BBDD8;
   padding: 3px 3px 3px 8px;
-  color: #fff;
+  color: #ffffff;
 }
 
 div.grouper, div.setup {
   margin-top: 10px;
-  border: 1px solid #ccc;
+  border: 1px solid #cccccc;
 }
 
 div.setup {
@@ -963,22 +839,18 @@ div.state_title {
   margin-bottom: 5px;
   padding-left: 3px;
   padding-bottom: 5px;
-  border-bottom: 1px dotted #999;
-}
+  border-bottom: 1px dotted #999999;
 
-div.state_title ul {
-  list-style: none;
-  display: inline;
-}
+  ul {
+    @include inline-list;
 
-div.state_title li {
-  display: inline;
-  padding-left: 10px;
+    li { padding-left: 10px; }
+  }
 }
 
 div.new_subgroup {
   padding-top: 10px;
-  border-top: 1px dotted #ccc;
+  border-top: 1px dotted #cccccc;
   margin-top: 5px;
 }
 
@@ -991,20 +863,21 @@ div.grouped_item {
   padding-bottom: 2px;
 }
 
-td.boxed_right {
+@mixin boxed {
   padding: 5px;
   margin-right: 0px;
-  border-top: 1px solid #ccc;
-  border-right: 1px solid #ccc;
-  border-bottom: 1px solid #ccc;
+  border-top: 1px solid #cccccc;
+  border-bottom: 1px solid #cccccc;
+}
+
+td.boxed_right {
+  @include boxed;
+  border-right: 1px solid #cccccc;
 }
 
 td.boxed_left {
-  margin-left: 0px;
-  padding: 5px;
-  border-top: 1px solid #ccc;
-  border-left: 1px solid #ccc;
-  border-bottom: 1px solid #ccc;
+  @include boxed;
+  border-left: 1px solid #cccccc;
 }
 
 td.separator {
@@ -1015,40 +888,43 @@ td.boxed_title {
   font-size: 10px;
   margin: 0px;
   padding: 0px;
-  background: #ccc;
-  color: #fff;
+  background: #cccccc;
+  color: #ffffff;
 }
 
-#boxContainer {
+@mixin container-box($left-width, $right-width) {
   overflow: hidden;
-  color: #333;
+  div#right { width: $right-width; float: right; }
+  div#left  { width: $left-width;  float: left;  }
+}
+#boxContainer {
+  @include container-box(40%, 60%);
+
+  color: #333333;
   padding-left: 3px;
   background: #CBDCEF;
   border: 1px solid #7BBDD8;
 }
 
-#boxContainer div#right{
-  width: 60%;
-  float: right;
-}
-
-#boxContainer div#left{
-  width: 40%;
-  float: left;
-}
-
 #boxNormal {
-  overflow: hidden;
+  @include container-box(50%, 50%);
 }
 
-#boxNormal div#right{
-  width: 50%;
-  float: right;
-}
+#commentBox {
+  @include container-box(70%, 25%);
 
-#boxNormal div#left{
-  width: 50%;
-  float: left;
+  div#right {
+    padding: 0px 5px 5px 8px;
+    font-size: 10px;
+    color: #666666;
+  }
+
+  div#left {
+    background: #ffffcc;
+    border-top: 1px solid #FF8000;
+    padding: 5px 5px 5px 8px;
+    margin-bottom: 15px;
+  }
 }
 
 div.error {
@@ -1077,35 +953,24 @@ div.add {
 
 div.listing {
   margin: 5px 0px 10px 0px;
+
+  ul { list-style: square; }
 }
 
-div.listing ul {
-  list-style: square;
-}
-
-div.user_guide {
+@mixin user-box($background-color, $border-color) {
   @include border-radius(3px);
-  background: #D6FCCB;
+  background: $background-color;
   padding: 10px;
-  border: 1px solid #00DE7B;
-  color: black;
+  border: 1px solid $border-color;
+  color: #000000;
   margin-bottom: 15px;
   font-size:1em;
   font-weight:bold;
   text-align: center;
 }
 
-div.user_error {
-  @include border-radius(3px);
-  background: #ffcccc;
-  padding: 10px;
-  border: 1px solid #d00;
-  color: black;
-  margin-bottom: 15px;
-  font-size:1em;
-  font-weight:bold;
-  text-align: center;
-}
+div.user_guide { @include user-box(#d6fccb, #00de7b); }
+div.user_error { @include user-box(#ffcccc, #dd0000); }
 
 div.centered {
   text-align: center;
@@ -1124,20 +989,17 @@ input.enhanced {
 }
 
 table.sortable thead tr th {
-  border-bottom: 1px solid #888;
+  border-bottom: 1px solid #888888;
   font-size: 10px;
 }
 
-.rowodd { }
+.rowodd  { }
+.roweven { background:#dedede; }
 
-.roweven {
-  background:#dedede;
-}
 #ListingDocuments{
-padding-bottom:7px;
+  padding-bottom:7px;
 }
 
 .property_edit_info {
-  color: #800;
-
+  color: #880000;
 }

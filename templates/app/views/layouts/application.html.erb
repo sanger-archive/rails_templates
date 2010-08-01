@@ -3,13 +3,19 @@
   <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <title>
-      <%= h(RELEASE.application_name) %> : <%= controller.controller_name.capitalize %> - <%= @page_name || controller.action_name %>
-    </title><%= stylesheet_link_tag "grids-min", "tabview", "screen", :media => "all", :cache => false %><%= javascript_include_tag :defaults, "tablekit", "popup", "scriptaculous.js?load=effects", :cache => false %>
+      <%= h(RELEASE.application_name) %> : <%= h(controller.controller_name.capitalize) %> - 
+      <%= h(@page_name || controller.action_name) %>
+    </title>
+    <%= stylesheet_link_tag 'screen', 'application', :media => 'all', :cache => false %>
+
+    <%= stylesheet_link_tag "grids-min", "tabview", :media => "all", :cache => false %>
+    <%= javascript_include_tag :defaults, "tablekit", "popup", "scriptaculous.js?load=effects", :cache => false %>
     <%= javascript_include_tag 'xml_request.js' %>
     <%= javascript_include_tag 'organism_validation.js' %>
     <%= javascript_include_tag 'compoundform.js' %>
     <%= javascript_include_tag 'sample_registration.js' %>
     <%= javascript_include_tag 'sample_move.js' %>
+
     <link rel="shortcut icon" href="/images/favicon.ico" type="image/vnd.microsoft.icon" />
     <link rel="icon" href="/images/favicon.ico" type="image/vnd.microsoft.icon" />
   </head>
@@ -25,7 +31,7 @@
           <div id="description" class="bar">
             <ul>
               <li>
-                <span id="institute"><%= link_to RELEASE.organisation, RELEASE.organisation_link %></span>
+                <span id="institute"><%= link_to h(RELEASE.organisation), RELEASE.organisation_link %></span>
               </li>
             </ul>
           </div>
@@ -35,28 +41,28 @@
               <li><%= link_to 'Log out', logout_path -%></li>
 <% end -%>
             </ul>
-          </div><br clear="all" />
+          </div>
         </div>
         <div id="header">
           <div id='header_container'>
             <div id='search'>
             </div>
             <div id="app_name">
-              <%= link_to RELEASE.application_name.upcase, root_path %>
+              <%= link_to h(RELEASE.application_name.upcase), root_path %>
             </div>
           </div>
           <div id="tab_bar">
             <div id="tabs">
               <ul>
               </ul>
-            </div><br clear="all" />
+            </div>
           </div>
         </div>
       </div>
       <div id="bd">
         <div id="yui-main">
           <div class="yui-b">
-            <%= render_flashes %>
+            <% render_flashes %>
             <div id="yield">
               <%= yield %>
             </div>
@@ -64,7 +70,7 @@
         </div>
         <div id="menu" class="yui-b">
           <div class="callout">
-            <%= @title %>
+            <%= h(@title) %>
             <div id="links">
             </div>
           </div>
@@ -72,8 +78,9 @@
       </div>
       <div id="ft">
         <div id="footer">
-          <%= link_to "Feedback", "mailto:seq-help@sanger.ac.uk" %><br />
-          <%= link_to RELEASE.application_name, root_path %> <%= RELEASE.full %> <%= "(#{Rails.env})" unless Rails.env == "production" %> · A production tool from <%= link_to "Sequencing Informatics", "http://intweb/Software/launch" %>
+          <%= link_to "Feedback", "mailto:seq-help@sanger.ac.uk" %><br/>
+          <%= link_to h(RELEASE.application_name), root_path %> <%= h(RELEASE.full) %> <%= "(#{h(Rails.env)})" unless Rails.env == "production" %> · 
+          A production tool from <%= link_to "Sequencing Informatics", "http://intweb/Software/launch" %>
         </div>
       </div>
     </div>
