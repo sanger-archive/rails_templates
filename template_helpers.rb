@@ -18,6 +18,15 @@ def alias_method_chain(method, extension)
   end
 end
 
+# Left justifies the given string by determining the shortest whitespace sequence over all lines.  It assumes that
+# the whitespace is made from space characters, so if you're using tabs then convert them first (you shouldn't be
+# if you follow our coding standard)
+def left_justify(string)
+  shortest = ' ' * 100 # Arbitarily long string!
+  string.dup.gsub(/^(\s+)[^\s]/m) { shortest = $1 if $1.length < shortest.length }
+  string.gsub(/^#{ shortest }/m, '')
+end
+
 #####################################################################################################################
 # Global helpers, used pretty much everywhere!
 #####################################################################################################################
@@ -118,8 +127,7 @@ end
 #####################################################################################################################
 # Bundler helpers
 #####################################################################################################################
-def bundler_install(&block)
-  setup_rails_for_bundler
+def bundle(&block)
   generate_gemfile(&block)
   install_gems
 end
@@ -167,15 +175,15 @@ class Bundle
   def contents
     content = ''
     content << "group :#{ @name } do\n" unless @name.nil?
-    content << [ @sources, @gems, @groups ].flatten.map(&:contents).join("\n")
-    content << "end" unless @name.nil?
+    content << [ @sources, @gems, @groups ].flatten.map(&:contents).join("\n") << "\n"
+    content << "end\n" unless @name.nil?
     content
   end
 end
 
 def generate_gemfile(&block)
-  log 'bundler', 'Generating Gemfile ...'
-  file('Gemfile', Bundle.new(&block).contents)
+  log 'bundler', 'Updating Gemfile ...'
+  append_file('Gemfile', Bundle.new(&block).contents)
 end
 
 def install_gems
@@ -183,10 +191,10 @@ def install_gems
   run('bundle install', false)
 end
 
-def setup_rails_for_bundler
+def bundler_install_into_rails
   log 'bundler', 'Setting up Rails to use Bundler ...'
 
-  file 'config/preinitializer.rb', %{
+  file('config/preinitializer.rb', left_justify(%Q{
     begin
       require "rubygems"
       require "bundler"
@@ -207,9 +215,9 @@ def setup_rails_for_bundler
       raise RuntimeError, "Bundler couldn't find some gems." +
         "Did you run `bundle install`?"
     end
-  }.strip
+  }).strip)
 
-  gsub_file 'config/boot.rb', "Rails.boot!", %{
+  gsub_file('config/boot.rb', "Rails.boot!", left_justify(%Q{
     class Rails::Boot
       def run
         load_initializer
@@ -225,7 +233,7 @@ def setup_rails_for_bundler
     end
 
     Rails.boot!
-  }.strip
+  }).strip)
 
   git_ignore('.bundle')
 end
@@ -234,9 +242,10 @@ end
 # Authentication plugin stuff
 #####################################################################################################################
 def authentication_install
+  # NOTE: Seem to be having loads of problems with script/plugin (through plugin helper) so use git submodule directly
   log('authentication', 'Installing required plugins ...')
-  plugin('rails-authorization-plugin', :git => 'http://github.com/DocSavage/rails-authorization-plugin.git')
-  plugin('sanger_authentication',      :git => 'ssh://git.internal.sanger.ac.uk/repos/git/psd/sanger_authentication.git')
+  git(:submodule => 'add http://github.com/DocSavage/rails-authorization-plugin.git vendor/plugins/rails-authorization-plugin')
+  git(:submodule => 'add ssh://git.internal.sanger.ac.uk/repos/git/psd/sanger_authentication.git vendor/plugins/sanger_authentication')
 
   log('authentication', 'Setting up default routes ...')
   route 'map.login "/login", :controller => "sessions", :action => "login"'
@@ -248,11 +257,21 @@ def authentication_install
   generate(:model, "User", "login:string", "cached_cookie:string")
 
   log('authentication', 'Setting up application infrastructure ...')
+  gsub_file('app/controllers/application_controller.rb', 'end', left_justify(%Q{
+    # Authentication related stuff ...
+    attr_accessor :current_user
+    include SangerAuthentication
+    before_filter :login_required
+    filter_parameter_logging :password, :credential_1
+  end
+  }))
+
   file 'app/models/user.rb'
   file 'app/controllers/sessions_controller.rb'
   file 'app/views/layouts/sessions.html.erb'
   file 'app/views/sessions/login.html.erb'
-  file 'public/stylesheets/sessions.css'
+
+  compass_stylesheets('sessions')
 end
 
 #####################################################################################################################
@@ -260,12 +279,33 @@ end
 #####################################################################################################################
 # Installs compass into the current application
 def compass_install
+  log('compass', 'Requiring the compass gem ...')
+  bundle { gem 'compass', '~>0.10.2' }
+
   log('compass', 'Installing compass into the application ...')
   run("compass init rails --sass-dir app/stylesheets --css-dir public/stylesheets .")
+
+  # NOTE: This only needs to happen for Rails 2.3 and compass 0.10.2 by the looks of it.
+  # http://github.com/chriseppstein/compass/issuesearch?state=closed&q=yui#issue/172
+  log('compass', 'Patching compass initialization ...')
+  gsub_file('config/compass.rb', 'environment = Compass::AppIntegration::Rails.env', left_justify(%Q{
+    environment = Compass::AppIntegration::Rails.env
+    extensions_path = 'vendor/plugins/compass_extensions'
+  }).strip)
+  gsub_file('config/initializers/compass.rb', 'Compass.configure_sass_plugin!', left_justify(%Q{
+    Compass.discover_extensions!
+    Compass.configure_sass_plugin!
+  }).strip)
 end
 
 # Installs compass stylesheets
 def compass_stylesheets(*stylesheets)
   log('compass', 'Installing compass stylesheets ...')
   stylesheets.each { |stylesheet| file(File.join('app', 'stylesheets', "#{ stylesheet }.scss")) }
+end
+
+# Installs a compass plugin from the given URL
+def compass_plugin(name, url)
+  log('compass', "Installing compass plugin '#{ name }' ...")
+  git(:submodule => "add #{ url.inspect } #{ File.join(%w{vendor plugins compass_extensions}, name).inspect }")
 end

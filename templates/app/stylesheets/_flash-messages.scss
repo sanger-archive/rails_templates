@@ -1,0 +1,27 @@
+.flash {
+  @include border-top-radius(3px);
+
+  border {
+    top:   1px solid #57b2df;
+    left:  1px solid #57b2df;
+    right: 1px solid #57b2df;
+  }
+
+  background: #66ccff;
+  color: #ffffff;
+  font-weight: bold;
+  padding: 5px 10px 5px 10px;
+  display: block;
+  line-height: 16px;
+  font-size: 12px;
+}
+
+@mixin flash-message-box($background-color, $foreground-color, $border-color) {
+  background-color: $background-color;
+  border-color: 1px solid $border-color;
+  color: $foreground-color;
+}
+
+#message_notice  { @include flash-message-box(green,  #ffffff, #db1f2a); }
+#message_warning { @include flash-message-box(yellow, #000000, #fadf00); } 
+#message_error   { @include flash-message-box(red,    #ffffff, #76b900); }
