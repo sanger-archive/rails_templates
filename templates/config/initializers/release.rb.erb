@@ -1,0 +1,24 @@
+# This contains details of the release of the application
+# to remove hard coding throughout the application
+
+# Parts of this file could be dynamically rewritten by
+# Capistrano task / Git hooks on deployments / commits
+
+require "ostruct"
+
+APPLICATION_VERSION = { :major => 1, :iteration => 0, :feature => 0, :bug_fix => 0 }.tap do |version|
+  class << version
+    def version_string_from(*values)
+      values.compact.map { |k| self[k] }.join('.')
+    end
+  end
+end.freeze
+
+RELEASE = OpenStruct.new(
+  :application_name   => "<%= application_name %>",
+  :organisation       => 'Wellcome Trust Sanger Institute',
+  :organisation_link  => 'http://www.sanger.ac.uk/',
+  :api_version        => '0.3',
+  :full               => APPLICATION_VERSION.version_string_from(:major, :iteration, :feature, :bugfix),
+  :featured           => APPLICATION_VERSION.version_string_from(:major, :iteration, ((APPLICATION_VERSION[:feature] > 0) ? :feature : nil))
+).freeze

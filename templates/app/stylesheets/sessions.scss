@@ -1,3 +1,5 @@
+@import "flash-messages";
+
 body {
   margin: 0px;
   padding: 0px;
@@ -35,22 +37,4 @@ div#content {
   background: #fff;
   font-size: 13px;
   border-bottom: 1px solid #0088BA;
-}
-
-#message_notice {
-  background: green;
-  border-color: 1px solid ##d81f2a;
-  color: white;
-}
-
-#message_warning {
-  background: yellow;
-  border-color: 1px solid #fadf00;
-  color: black;
-}
-
-#message_error {
-  background: red;
-  border-color: 1px solid #76b900;
-  color: white;
 }
