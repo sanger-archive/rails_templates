@@ -19,6 +19,7 @@ git_commit('Initial project setup') do
     gem 'exception_notifier'
     gem 'acts_as_audited'
     gem 'sqlite3-ruby', '~>1.2.5'
+    gem 'formtastic', '~>0.9.10'
 
     group :development do
       gem 'ruby-debug'
@@ -41,7 +42,7 @@ git_commit('Initial project setup') do
   end
 
   # Setup some git ignores
-  git_ignore('log/*.log', 'db/*/sqlite3', 'rerun.txt', 'tmp')
+  git_ignore('log/*.log', 'db/*.sqlite3', 'rerun.txt', 'tmp')
   git_ignore_directories('log', 'tmp', 'vendor')
 
   # Setup Cucumber
