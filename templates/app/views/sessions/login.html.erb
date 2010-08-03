@@ -1,13 +1,12 @@
-<%= render_flashes %>
 <div style="padding: 0px 5px 5px 0px; margin: 0px 10px 3px 10px; border-bottom: 1px solid #ccc;">
-  <strong>SEQUENCESCAPE <%= RELEASE.featured %></strong>
+  <strong><%= h(RELEASE.application_name) %> <%= RELEASE.featured %></strong>
   <div class='intro'>
-    Sample and study management for sequencing and genotyping at the Wellcome Trust Sanger Institute.
+    An application from the Wellcome Trust Sanger Institute.
   </div>
 </div>
 <div id="account_box">
   <div id="account_form">
-    <% form_tag do -%>
+<% form_tag do -%>
     <table width="100%" cellspacing="0" cellpadding="0">
       <tr class="account_item">
         <td colspan="2" class="account_item account_label">
@@ -26,9 +25,9 @@
       
       <tr>
         <td>&nbsp;</td>
-        <td><br /><%= submit_tag I18n.t('global_links.login') %></td>
+        <td><br /><%= submit_tag I18n.t('controllers.sessions.views.login.button') %></td>
       </tr>
     </table>
-    <% end -%>
+<% end -%>
   </div>
 </div>
