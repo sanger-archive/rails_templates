@@ -287,8 +287,11 @@ def authentication_install
   log('authentication', 'Setting up application infrastructure ...')
   gsub_file('app/controllers/application_controller.rb', 'end', left_justify(%Q{
     # Authentication related stuff ...
-    attr_accessor :current_user
     include SangerAuthentication
+    attr_accessor :current_user
+    helper_method :current_user
+    helper_method :logged_in?
+
     before_filter :login_required
     filter_parameter_logging :password, :credential_1
   end

@@ -14,6 +14,7 @@ div.yui-t4 {
   @include yui-two-column-right-template(180px); 
 }
 
+
 /* General style rules */
 body {
   margin: 0px;
@@ -25,6 +26,13 @@ body {
 
 img {
   border: 0px;
+}
+
+// Styling for an inline list that is separated by the '&middot;' character
+@mixin dot-separated-list {
+  @include inline-list;
+  li:after { content: ' \00B7 '; }
+  li:last-child:after { content: ''; }
 }
 
 /* Main application template layout rules */
@@ -92,6 +100,7 @@ div#quick_links {
     font-size: 11px;
 
     ul {
+      @include dot-separated-list;
       margin-top: 2px;
     }
   }
@@ -182,13 +191,7 @@ div#footer {
     text-decoration: none;
   }
 
-  ul {
-    @include inline-list;
-
-    // This separates each 'li' with an "&middot;", which can't be used in 'content' so we use the unicode value.
-    li:after { content: ' \00B7 '; }
-    li:last-child:after { content: ''; }
-  }
+  ul { @include dot-separated-list; }
 }
 
 // TODO[md12]: Potentially these are all supposed to be in app/stylesheets/application.scss for sequencescape
