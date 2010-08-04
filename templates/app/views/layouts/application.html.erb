@@ -34,7 +34,7 @@
           <div id="user_links" class="bar">
             <ul>
 <% if @current_user -%>
-              <li><%= link_to 'Log out', logout_path -%></li>
+              <li><%= link_to 'Logout', logout_path -%></li>
 <% end -%>
             </ul>
           </div>
@@ -74,9 +74,11 @@
       </div>
       <div id="ft">
         <div id="footer">
-          <%= mail_to 'seq-help@sanger.ac.uk', 'Feedback' %><br/>
-          <%= link_to h(RELEASE.application_name), root_path %> <%= h(RELEASE.full) %> <%= "(#{h(Rails.env)})" unless Rails.env == "production" %> · 
-          A production tool from <%= link_to "Sequencing Informatics", "http://intweb/Software/launch" %>
+          <ul>
+            <li><%= mail_to 'seq-help@sanger.ac.uk', 'Feedback' %></li>
+            <li><%= link_to h(RELEASE.application_name), root_path %> <%= h(RELEASE.full) %> <%= "(#{h(Rails.env)})" unless Rails.env == "production" %></li>
+            <li>A production tool from <%= link_to "Sequencing Informatics", "http://intweb/Software/launch" %></li>
+          </ul>
         </div>
       </div>
     </div>
