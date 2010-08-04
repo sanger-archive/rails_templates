@@ -2,13 +2,18 @@ class SessionsController < ApplicationController
   skip_before_filter :login_required
   filter_parameter_logging :password
 
+  def index
+    render(:action => 'login')
+  end
+
   def login
     self.current_user = authenticate(params[:login], params[:password])
     if logged_in?
       flash[:notice] = t('controllers.sessions.messages.logged_in')
       redirect_back_or_default(root_url)
-    elsif params
+    else
       flash[:error] = t('controllers.sessions.messages.invalid_details')
+      redirect_to(login_path)
     end
   end
 

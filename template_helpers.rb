@@ -90,6 +90,14 @@ def locale(language_identifier, &block)
   end
 end
 
+def javascripts(*filenames)
+  filenames.each { |filename| file(File.join(%w{public javascripts}, "#{ filename }.js")) }
+end
+
+def images(*filenames)
+  filenames.each { |filename| file(File.join(%w{public images}, filename)) }
+end
+
 #####################################################################################################################
 # RVM helpers
 #####################################################################################################################
@@ -267,8 +275,9 @@ def authentication_install
   git(:submodule => 'add ssh://git.internal.sanger.ac.uk/repos/git/psd/sanger_authentication.git vendor/plugins/sanger_authentication')
 
   log('authentication', 'Setting up default routes ...')
-  route 'map.login "/login", :controller => "sessions", :action => "login", :conditions => { :method => :post }'
-  route 'map.logout "/logout", :controller => "sessions", :action => "logout", :conditions => { :method => :get }'
+  route 'map.login     "/login",     :controller => "sessions", :action => "index",  :conditions => { :method => :get  }'
+  route 'map.login_now "/login/now", :controller => "sessions", :action => "login",  :conditions => { :method => :post }'
+  route 'map.logout    "/logout",    :controller => "sessions", :action => "logout", :conditions => { :method => :get  }'
 
   log('authentication', 'Setting up models ...')
   generate("audited_migration", "add_audits_table")
@@ -309,6 +318,7 @@ def authentication_install
   file 'app/views/sessions/login.html.erb'
 
   compass_stylesheets('sessions')
+  javascripts('xml_request')
 end
 
 #####################################################################################################################
