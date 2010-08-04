@@ -1,35 +1,34 @@
 class SessionsController < ApplicationController
-  
   skip_before_filter :login_required
-
   filter_parameter_logging :password
 
   def index
-    redirect_to :action => :login
+    render(:action => 'login')
   end
 
   def login
-    return unless request.post?
     self.current_user = authenticate(params[:login], params[:password])
     if logged_in?
-      flash[:notice] = "Logged in successfully"
+      flash[:notice] = t('controllers.sessions.messages.logged_in')
       redirect_back_or_default(root_url)
     else
-      if params
-        flash[:notice] = "Your log in details don't match our records. Please try again."
-      end
+      flash[:error] = t('controllers.sessions.messages.invalid_details')
+      redirect_to(login_path)
     end
   end
 
   def logout
     self.current_user.forget_me if logged_in?
     cookies.delete :WTSISignOn
-    flash[:notice] = "You have been logged out."
+    flash[:notice] = t('controllers.sessions.messages.logged_out')
     redirect_back_or_default(root_url)
   end
+
+private
   
   def redirect_back_or_default(default)
-    session[:return_to] ? redirect_to(session[:return_to]) : redirect_to(default)
+    redirect_to(session[:return_to] || default)
+  ensure
     session[:return_to] = nil
   end
 

@@ -71,6 +71,33 @@ def erb_template(destination)
   file(destination, ERB.new(get_file(source), 0, '-').result(binding))
 end
 
+def yaml(filename, default = nil, &block)
+  yaml =
+    begin
+      File.open(filename, 'r') { |file| YAML.load(file) }
+    rescue Errno::ENOENT => e
+      default
+    end
+
+  yield(yaml)
+  File.open(filename, 'w') { |file| file.write(YAML.dump(yaml)) }
+end
+
+def locale(language_identifier, &block)
+  yaml(File.join(%w{config locales}, "#{ language_identifier }.yml"), { language_identifier.to_s => {} }) do |locale|
+    block.call(locale[language_identifier])
+    locale
+  end
+end
+
+def javascripts(*filenames)
+  filenames.each { |filename| file(File.join(%w{public javascripts}, "#{ filename }.js")) }
+end
+
+def images(*filenames)
+  filenames.each { |filename| file(File.join(%w{public images}, filename)) }
+end
+
 #####################################################################################################################
 # RVM helpers
 #####################################################################################################################
@@ -248,8 +275,9 @@ def authentication_install
   git(:submodule => 'add ssh://git.internal.sanger.ac.uk/repos/git/psd/sanger_authentication.git vendor/plugins/sanger_authentication')
 
   log('authentication', 'Setting up default routes ...')
-  route 'map.login "/login", :controller => "sessions", :action => "login"'
-  route 'map.logout "/logout", :controller => "sessions", :action => "logout"'
+  route 'map.login     "/login",     :controller => "sessions", :action => "index",  :conditions => { :method => :get  }'
+  route 'map.login_now "/login/now", :controller => "sessions", :action => "login",  :conditions => { :method => :post }'
+  route 'map.logout    "/logout",    :controller => "sessions", :action => "logout", :conditions => { :method => :get  }'
 
   log('authentication', 'Setting up models ...')
   generate("audited_migration", "add_audits_table")
@@ -259,12 +287,33 @@ def authentication_install
   log('authentication', 'Setting up application infrastructure ...')
   gsub_file('app/controllers/application_controller.rb', 'end', left_justify(%Q{
     # Authentication related stuff ...
-    attr_accessor :current_user
     include SangerAuthentication
+    attr_accessor :current_user
+    helper_method :current_user
+    helper_method :logged_in?
+
     before_filter :login_required
     filter_parameter_logging :password, :credential_1
   end
   }))
+
+  locale('en') do |config|
+    config['controllers'] ||= {}
+    config['controllers'].merge!(
+      'sessions' => {
+        'messages' => {
+          'logged_in'       => 'Logged in successfully.',
+          'logged_out'      => 'You have been logged out.',
+          'invalid_details' => "Your log in details don't match our records. Please try again."
+        },
+        'views' => {
+          'login' => {
+            'button' => 'Login'
+          }
+        }
+      }
+    )
+  end
 
   file 'app/models/user.rb'
   file 'app/controllers/sessions_controller.rb'
@@ -272,6 +321,7 @@ def authentication_install
   file 'app/views/sessions/login.html.erb'
 
   compass_stylesheets('sessions')
+  javascripts('xml_request')
 end
 
 #####################################################################################################################

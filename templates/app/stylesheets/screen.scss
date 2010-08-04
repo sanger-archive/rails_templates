@@ -14,6 +14,7 @@ div.yui-t4 {
   @include yui-two-column-right-template(180px); 
 }
 
+
 /* General style rules */
 body {
   margin: 0px;
@@ -25,6 +26,13 @@ body {
 
 img {
   border: 0px;
+}
+
+// Styling for an inline list that is separated by the '&middot;' character
+@mixin dot-separated-list {
+  @include inline-list;
+  li:after { content: ' \00B7 '; }
+  li:last-child:after { content: ''; }
 }
 
 /* Main application template layout rules */
@@ -57,6 +65,7 @@ div#quick_links {
   background: #31353d;
   color: #efefef;
   font-size: 12px;
+  line-height: 15px;
   border-top: 3px solid #055694;
   padding: 3px 10px 2px 10px;
 
@@ -91,6 +100,7 @@ div#quick_links {
     font-size: 11px;
 
     ul {
+      @include dot-separated-list;
       margin-top: 2px;
     }
   }
@@ -121,10 +131,15 @@ div#header {
     }
   }
 
+  div#header_container {
+    padding-top: 1px;
+  }
+
   div#tab_bar {
     @include clearfix;
     background: #aad4f4;
     border-bottom: 1px solid #bbbbbb;
+    min-height: 21px;
 
     div#tabs {
       background: #aad4f4;
@@ -175,6 +190,8 @@ div#footer {
     @include link-colors(#3e87b3, #880000);
     text-decoration: none;
   }
+
+  ul { @include dot-separated-list; }
 }
 
 // TODO[md12]: Potentially these are all supposed to be in app/stylesheets/application.scss for sequencescape

@@ -12,6 +12,7 @@
         <%= image_tag "application-large-dark.jpg", :size => "600x229" %>
       </div>
       <div id="content">
+        <% render_flashes %>
         <%= yield %>
       </div>
     </div>

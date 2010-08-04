@@ -19,6 +19,6 @@ RELEASE = OpenStruct.new(
   :organisation       => 'Wellcome Trust Sanger Institute',
   :organisation_link  => 'http://www.sanger.ac.uk/',
   :api_version        => '0.3',
-  :full               => APPLICATION_VERSION.version_string_from(:major, :iteration, :feature, :bugfix),
+  :full               => APPLICATION_VERSION.version_string_from(:major, :iteration, :feature, :bug_fix),
   :featured           => APPLICATION_VERSION.version_string_from(:major, :iteration, ((APPLICATION_VERSION[:feature] > 0) ? :feature : nil))
 ).freeze

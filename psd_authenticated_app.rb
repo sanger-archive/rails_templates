@@ -60,16 +60,22 @@ git_commit('Initial project setup') do
   file  'db/seeds.rb'
   mkdir 'db/seeds'
   file  'config/config.yml'
-  file  'public/images/application.gif'
-  file  'public/images/application-large-dark.jpg'
 
   file 'app/helpers/application_helper.rb'
   file 'app/views/layouts/application.html.erb'
+
+  javascripts('tablekit', 'popup')
+  images('application.gif', 'application-large-dark.jpg', 'logo_bg.png')
+
+  # Upgrade the prototype and scriptaculous installation
+  javascripts('prototype', 'scriptaculous')
+  javascripts('builder', 'controls', 'dragdrop', 'effects', 'slider', 'sound', 'unittest')
 
   # Setup compass/sass stylesheets ...
   compass_install
   compass_stylesheets('_flash-messages', 'screen', 'application')
   compass_plugin('yui', 'http://github.com/chriseppstein/yui-compass-plugin.git')
+  compass_stylesheets('tabview')    # NOTE: YUI styling which should be removed in the future!
 
   # Setup the authentication
   authentication_install
