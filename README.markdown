@@ -14,7 +14,9 @@ As the very first line of your template file.  This gives you a bunch of useful 
 
 Third party code included
 =========================
-The following are included within this repository:
+The following are (partially) included within this repository:
 
-* popup.js    - http://www.methods.co.nz/popup/popup.html
-* tablekit.js - http://millstream.com.au/view/code/tablekit/
+* prototype.js     - http://prototypejs.org/
+* scriptaculous.js - http://script.aculo.us/
+* popup.js         - http://www.methods.co.nz/popup/popup.html
+* tablekit.js      - http://millstream.com.au/view/code/tablekit/

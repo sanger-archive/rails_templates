@@ -67,6 +67,10 @@ git_commit('Initial project setup') do
   javascripts('tablekit', 'popup')
   images('application.gif', 'application-large-dark.jpg', 'logo_bg.png')
 
+  # Upgrade the prototype and scriptaculous installation
+  javascripts('prototype', 'scriptaculous')
+  javascripts('builder', 'controls', 'dragdrop', 'effects', 'slider', 'sound', 'unittest')
+
   # Setup compass/sass stylesheets ...
   compass_install
   compass_stylesheets('_flash-messages', 'screen', 'application')
