@@ -308,6 +308,7 @@ def authentication_install
         },
         'views' => {
           'login' => {
+            'title'  => 'Login',
             'button' => 'Login'
           }
         }
